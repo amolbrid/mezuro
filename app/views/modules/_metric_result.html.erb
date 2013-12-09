@@ -4,18 +4,19 @@
      metric_name = metric_configuration_snapshot.metric.name
   %>
   <tr>
-    <td><%= link_to metric_name, "", 
-              onclick: "new Module.Graphic('container#{metric_result.id}', '#{metric_name}', '#{module_result.id}')",
-              id: "metric_#{module_result.id}",
-              remote: true %>
-    </td>
+    <!-- The metric name should be a link that uses ajax to generate a graphic with its history results. -->
+    <td><%= metric_name %></td>
+
     <td><%= format_grade(metric_result.value) %></td>
     <td><%= metric_configuration_snapshot.weight %></td>
     <td><% if range_snapshot.nil? %>Missing range<% else %><span style="color: #<%= range_snapshot.color %>"><%= range_snapshot.label %></span><% end %></td>
   </tr>
+
+  <!-- This is the container that will be displayed the graphic. -->
   <tr id="container<%= metric_result.id %>" style="display: none">
     <td colspan="4">
-      <div id="container<%= metric_result.id %>" class="graphic_container"><%= image_tag 'loader.gif' %> Loading data. Please, wait.</div>
+      <div id="container<%= metric_result.id %>" class="graphic_container"></div>
     </td>
   </tr>
+
 <% end %>
